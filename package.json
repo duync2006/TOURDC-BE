@@ -4,6 +4,7 @@
   "description": "Backend for tourdc application",
   "main": "index.js",
   "scripts": {
+    "dev": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -17,7 +18,10 @@
   },
   "homepage": "https://github.com/duync2006/TOURDC-BE#readme",
   "dependencies": {
+    "dotenv": "^16.3.2",
     "express": "^4.18.2",
-    "mongoose": "^8.1.0"
+    "mongoose": "^8.1.0",
+    "nodemon": "^3.0.3",
+    "web3": "^4.4.0"
   }
 }

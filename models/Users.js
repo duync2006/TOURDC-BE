@@ -1,11 +1,16 @@
 const mongoose = require("mongoose");
 
 const user = new mongoose.Schema({
-  username: String,
+  username: {type: String, trim: true, index: true, required: true, unique: true},
   password: String,
   wallet_address: String,
   private_key: String,
-  balance: Int32Array,
+  balance: {type: Number, default: 0},
+  phoneNumber: String,
+  rep: {type: Number, default: 15},
+  name: String, 
+  age: Number,
+  avatar: String,
 }
 )
 
