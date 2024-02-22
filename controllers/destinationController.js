@@ -1,13 +1,18 @@
 const { mongo } = require('mongoose')
 const Destination = require('../models/Destination')
+var appRoot = require('app-root-path')
 
 const DestinationController = {
   
   getAllDestinations: async(req, res) => {
     try {
-      const destination = await Destination.find()
-      res.status(200).send(destination)
+      const destinations = await Destination.find()
+      destinations.map((destination) => {
+        destination.thumbnail = appRoot + '/public/imgs/destination'+ destination.thumbnail
+      })
+      res.status(200).send(destinations)
     } catch (error) {
+      console.log(error)
       res.status(500).send(error)
     }
   },
@@ -41,8 +46,20 @@ const DestinationController = {
       console.log(err)
       res.status(500).send(err)
     }
+  },
+  getDestinationThumbnail: async(req, res) => {
+    try {
+      var o_id = new mongo.ObjectId(req.params.destinationId)
+      const destination = await Destination.findOne({_id: o_id})
+      
+      res.status(200).json({
+        img: appRoot + '/public/imgs/destination/'+ destination.thumbnail
+      })
+    } catch (err) {
+      console.log(err)
+      res.status(500).send(err)
+    }
   }
-
 }
 
 module.exports = DestinationController

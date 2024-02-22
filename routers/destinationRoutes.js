@@ -7,6 +7,8 @@ const path = require('path')
 const multer = require('multer');
 const helpers = require('../helper/imageFilter')
 
+
+
 const storage = multer.diskStorage({
   destination: function(req, file, cb) {
       cb(null,appRoot + '/public/imgs/destination');
@@ -30,5 +32,7 @@ router.post('/addDestination', destinationController.addDestination)
 router.get('/getAllDestinations', destinationController.getAllDestinations)
 
 router.get('/getDestinationById/:destinationId', destinationController.getDestinationById)
+
+router.get('/getDestinationThumbnail/:destinationId', destinationController.getDestinationThumbnail)
 
 module.exports = router;

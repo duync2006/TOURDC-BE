@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const { post } = require("../routers/userRoutes");
 
 const user = new mongoose.Schema({
   username: {type: String, trim: true, index: true, required: true, unique: true},
@@ -11,6 +12,10 @@ const user = new mongoose.Schema({
   name: String, 
   age: Number,
   avatar: String,
+  post: {
+    type: [mongoose.Schema.Types.ObjectId],
+    ref: 'Post'
+  }
 }
 )
 
