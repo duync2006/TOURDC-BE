@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>MY APP</title>
+  <script src="./index.js"></script>
+</head>
+<body>
+  <img src="/images/stickman.gif" alt="Stickman" width="24" height="39">
+  <img src="/uploads/profile_pic-1708424928532.png">
+  <form method="POST" action="/upload-profile-pic" enctype="multipart/form-data">
+    <div>
+        <label>Select your profile picture:</label>
+        <input type="file" name="profile_pic" />
+    </div>
+    <div>
+        <input type="submit" name="btn_upload_profile_pic" value="Upload" />
+    </div>
+</form>
+ 
+<!-- MULTIPLE FILES -->
+ 
+<form method="POST" action="/upload-multiple-images" enctype="multipart/form-data">
+  <div>
+      <label>Select multiple images:</label>
+      <input type="file" name="multiple_images" multiple />
+  </div>
+  <div>
+      <input type="submit" name="btn_upload_multiple_images" value="Upload" />
+  </div>
+</form>
+ 
+  <!--   PHOTO-->
+ 
+<form action="/upload/photo" enctype="multipart/form-data" method="POST"> 
+  <input type="file" name="myImage" accept="image/*" />
+  <input type="submit" value="Upload Photo"/>
+</form>
+ 
+ 
+ 
+</body>
+</html>
