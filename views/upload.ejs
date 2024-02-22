@@ -1,43 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>MY APP</title>
-  <script src="./index.js"></script>
-</head>
-<body>
-  <img src="/images/stickman.gif" alt="Stickman" width="24" height="39">
-  <img src="/uploads/profile_pic-1708424928532.png">
-  <form method="POST" action="/upload-profile-pic" enctype="multipart/form-data">
-    <div>
-        <label>Select your profile picture:</label>
-        <input type="file" name="profile_pic" />
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Node.js upload images</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+    <style>
+      div.preview-images > img {
+        width: 30%;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-8 mt-3">
+          <h4>Node.js upload images - bezkoder.com</h4>
+
+          <form class="mt-4"
+            action="/upload"
+            method="POST"
+            enctype="multipart/form-data"
+          >
+            <div class="form-group">
+              <input
+                type="file"
+                name="img"
+                id="input-files"
+                class="form-control-file border"
+              />
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
+        </div>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="preview-images"></div>
+        </div>
+      </div>
     </div>
-    <div>
-        <input type="submit" name="btn_upload_profile_pic" value="Upload" />
-    </div>
-</form>
- 
-<!-- MULTIPLE FILES -->
- 
-<form method="POST" action="/upload-multiple-images" enctype="multipart/form-data">
-  <div>
-      <label>Select multiple images:</label>
-      <input type="file" name="multiple_images" multiple />
-  </div>
-  <div>
-      <input type="submit" name="btn_upload_multiple_images" value="Upload" />
-  </div>
-</form>
- 
-  <!--   PHOTO-->
- 
-<form action="/upload/photo" enctype="multipart/form-data" method="POST"> 
-  <input type="file" name="myImage" accept="image/*" />
-  <input type="submit" value="Upload Photo"/>
-</form>
- 
- 
- 
-</body>
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script>
+      $(document).ready(function() {
+        let imagesPreview = function(input, placeToInsertImagePreview) {
+          if (input.files) {
+            let filesAmount = input.files.length;
+            for (i = 0; i < filesAmount; i++) {
+              let reader = new FileReader();
+              reader.onload = function(event) {
+                $($.parseHTML("<img>"))
+                  .attr("src", event.target.result)
+                  .appendTo(placeToInsertImagePreview);
+              };
+              reader.readAsDataURL(input.files[i]);
+            }
+          }
+        };
+        $("#input-files").on("change", function() {
+          imagesPreview(this, "div.preview-images");
+        });
+      });
+    </script>
+  </body>
 </html>

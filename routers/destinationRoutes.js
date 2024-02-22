@@ -25,7 +25,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage, fileFilter: helpers.imageFilter });
 
-router.post('/addThumbnail/:destinationId', upload.single('thumbnail'), destinationController.addThumbnail)
+router.post('/addThumbnail/:destinationId', destinationController.addThumbnail)
 
 router.post('/addDestination', destinationController.addDestination)
 
@@ -34,5 +34,9 @@ router.get('/getAllDestinations', destinationController.getAllDestinations)
 router.get('/getDestinationById/:destinationId', destinationController.getDestinationById)
 
 router.get('/getDestinationThumbnail/:destinationId', destinationController.getDestinationThumbnail)
+
+router.get('/getListFiles', destinationController.getListFiles)
+
+router.get('/files/:name', destinationController.download)
 
 module.exports = router;
