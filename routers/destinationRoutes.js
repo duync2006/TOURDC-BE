@@ -33,10 +33,10 @@ router.get('/getAllDestinations', destinationController.getAllDestinations)
 
 router.get('/getDestinationById/:destinationId', destinationController.getDestinationById)
 
-router.get('/getDestinationThumbnail/:destinationId', destinationController.getDestinationThumbnail)
+router.get('/getDestinationThumbnail/:name', destinationController.getDestinationThumbnail)
+
+router.get('/getDestinationThumbnailById/:id', destinationController.getDestinationThumbnailById)
 
 router.get('/getListFiles', destinationController.getListFiles)
-
-router.get('/files/:name', destinationController.download)
 
 module.exports = router;
