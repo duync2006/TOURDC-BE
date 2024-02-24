@@ -27,6 +27,8 @@ const upload = multer({ storage: storage, fileFilter: helpers.imageFilter });
 
 router.post('/addThumbnail/:destinationId', destinationController.addThumbnail)
 
+router.post('/addDestinationImgs/:destinationId',destinationController.addDestinationImgs)
+
 router.post('/addDestination', destinationController.addDestination)
 
 router.get('/getAllDestinations', destinationController.getAllDestinations)
@@ -36,6 +38,8 @@ router.get('/getDestinationById/:destinationId', destinationController.getDestin
 router.get('/getDestinationThumbnail/:name', destinationController.getDestinationThumbnail)
 
 router.get('/getDestinationThumbnailById/:id', destinationController.getDestinationThumbnailById)
+
+router.get('/getDestinationImgs/:id', destinationController.getDestinationImgs)
 
 router.get('/getListFiles', destinationController.getListFiles)
 
