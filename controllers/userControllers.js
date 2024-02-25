@@ -2,6 +2,7 @@ const User = require('../models/Users')
 const web3 = require('../config/web3')
 const asyncHandler = require('express-async-handler')
 const { uploadToCloudDinary, resizeUrlCloundinary } = require('../service/cloudinary')
+const generateAccessToken = require('../middleware/jwt').generateAccessToken
 
 const UserController =  {
   login: asyncHandler(async(req, res) => {
@@ -12,10 +13,12 @@ const UserController =  {
       })
     }
     const user = await User.findOne({username: req.body.username})
-    console.log("Is correct Password", await user.isCorrectPassword(req.body.password))
+    // console.log("Is correct Password", await user.isCorrectPassword(req.body.password))
     if (user && await user.isCorrectPassword(req.body.password)) {
+      const accessToken = generateAccessToken(user._id, user.role)
       res.status(200).json({
         success: true,
+        accessToken,
         userData: user
       })
     } else {

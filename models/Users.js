@@ -20,6 +20,7 @@ const user = new mongoose.Schema({
   name: String,
   age: Number,
   avatar: String,
+  role: { type: String, default: 'user' },
   post: {
     type: [mongoose.Schema.Types.ObjectId],
     ref: "Post",
