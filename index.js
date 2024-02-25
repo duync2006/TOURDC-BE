@@ -3,7 +3,8 @@ const userRoutes = require('./routers/userRoutes')
 const multer = require('multer');
 const db = require('./config/databaseConfig')
 require('dotenv').config({ path: '.env' })
-const destinationRoute = require('./routers/destinationRoutes')
+const destinationRoute = require('./routers/destinationRoutes');
+const initRoutes = require('./routers/index');
 // const upload = require('./views/upload.ejs')
 
 const app = express();
@@ -16,8 +17,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Routes
-app.use('/api/user', userRoutes);
-app.use('/api/destination', destinationRoute)
+initRoutes(app)
 
 app.set('views', './views')
 app.set('view engine', 'ejs')

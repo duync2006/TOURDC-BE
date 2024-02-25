@@ -1,5 +1,6 @@
 const express = require('express');
 const UserController = require('../controllers/userControllers');
+const {notFound, errHandler} = require('../middleware/errorHandler')
 
 const router = express.Router();
 // const upload = require('../middleware/upload')
