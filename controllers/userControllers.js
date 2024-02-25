@@ -4,7 +4,34 @@ const asyncHandler = require('express-async-handler')
 const { uploadToCloudDinary, resizeUrlCloundinary } = require('../service/cloudinary')
 
 const UserController =  {
+  login: asyncHandler(async(req, res) => {
+    if (req.body.username == "" || req.body.password == "") {
+      return res.status(400).json({
+        success: false, 
+        message: "Missing Input"
+      })
+    }
+    const user = await User.findOne({username: req.body.username})
+    console.log("Is correct Password", await user.isCorrectPassword(req.body.password))
+    if (user && await user.isCorrectPassword(req.body.password)) {
+      res.status(200).json({
+        success: true,
+        userData: user
+      })
+    } else {
+      throw new Error('Invalid credentials')
+    }
+  }),
+
   createUser: asyncHandler(async(req, res) => {
+      if (req.body.username == "" || req.body.password == "") {
+        return res.status(400).json({
+          success: false, 
+          message: "Missing Input"
+        })
+      }
+      const user = await User.findOne({username: req.body.username})
+      if (user) throw new Error('User Has Existed')
       if (req.body.waller_address == "" || req.body.waller_address == null) {
         let newWallet = web3.eth.accounts.create()
         console.log(newWallet.address)
@@ -12,7 +39,7 @@ const UserController =  {
         req.body.private_key = newWallet.privateKey
       }
       const newUser = await User.create(req.body);
-      res.status(200).json(newUser);
+      return res.status(200).json(newUser);
   }),
 
   uploadUserAvatar: async(req, res) => {

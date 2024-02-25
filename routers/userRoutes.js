@@ -7,6 +7,8 @@ const router = express.Router();
 
 router.post('/register', UserController.createUser);
 
+router.post('/login', UserController.login);
+
 // router.post('/uploadAvatar/:id', upload.single("avatar"),  UserController.uploadUserAvatar);
 
 
