@@ -25,6 +25,7 @@ const user = new mongoose.Schema({
     type: [mongoose.Schema.Types.ObjectId],
     ref: "Post",
   },
+  refreshToken: String
 });
 
 user.pre("save", async function (next) {

@@ -4,6 +4,8 @@ const multer = require('multer');
 const db = require('./config/databaseConfig')
 require('dotenv').config({ path: '.env' })
 const destinationRoute = require('./routers/destinationRoutes');
+var cookieParser = require('cookie-parser')
+
 const initRoutes = require('./routers/index');
 // const upload = require('./views/upload.ejs')
 
@@ -15,6 +17,7 @@ app.use(express.static(__dirname + '/public'));
 app.use(express.json());
 // app.use(bodyParser.text({type: '/'}));
 app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser())
 
 // Routes
 initRoutes(app)
