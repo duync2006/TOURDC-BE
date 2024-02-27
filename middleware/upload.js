@@ -9,12 +9,12 @@ var storage = new GridFsStorage({
   options: { useNewUrlParser: true, useUnifiedTopology: true },
   file: (req, file) => {
     const match = ["image/png", "image/jpeg"];
-
+    console.log("file: ", file)
     if (match.indexOf(file.mimetype) === -1) {
       const filename = `${Date.now()}-tourdc-${file.originalname}`;
       return filename;
     }
-    
+
     return {
       bucketName:  "photos",
       filename: `${Date.now()}-tourdc-${file.originalname}`
@@ -25,7 +25,7 @@ var storage = new GridFsStorage({
 var uploadFiles = multer({ storage: storage, fileFilter: helpers.imageFilter }).single("file");
 var uploadFilesMiddleware = util.promisify(uploadFiles);
 
-var uploadMultipleFiles = multer({ storage: storage, fileFilter: helpers.imageFilter }).array("file", 10)
+var uploadMultipleFiles = multer({ storage: storage, fileFilter: helpers.imageFilter }).array("file", 2)
 var uploadMultipleFilesMiddleware = util.promisify(uploadMultipleFiles)
 
 module.exports = {uploadFilesMiddleware, uploadMultipleFilesMiddleware};

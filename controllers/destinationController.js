@@ -47,16 +47,19 @@ const DestinationController = {
   addDestinationImgs: async(req, res) => {
     try {
       await upload.uploadMultipleFilesMiddleware(req, res);
-      // const filename = `${Date.now()}-tourdc-${req.file.originalname}`
-      console.log(filename)
-      if (req.file == undefined) {
+      if (req.files == undefined) {
         return res.send({
           message: "You must select a file.",
         });
       }
+      var listImgName = []
+      for (const file of req.files) {
+        listImgName.push(file.filename)
+      }
+      
       var o_id = new mongo.ObjectId(req.params.destinationId)
       const destination = await Destination.findOne({_id: o_id})
-      await Destination.updateOne({_id: o_id}, {thumbnail: req.file.filename})
+      await Destination.updateOne({_id: o_id}, {list_imgs: listImgName})
       
       return res.send({
         message: "File has been uploaded.",
@@ -73,8 +76,8 @@ const DestinationController = {
   addThumbnail: async(req, res) => {
     try {
       await upload.uploadFilesMiddleware(req, res);
-      const filename = `${Date.now()}-tourdc-${req.file.originalname}`
-      console.log(filename)
+      // const filename = `${Date.now()}-tourdc-${req.file.originalname}`
+      // console.log(filename)
       if (req.file == undefined) {
         return res.send({
           message: "You must select a file.",
@@ -83,7 +86,7 @@ const DestinationController = {
       var o_id = new mongo.ObjectId(req.params.destinationId)
       const destination = await Destination.findOne({_id: o_id})
       await Destination.updateOne({_id: o_id}, {thumbnail: req.file.filename})
-      
+      // console.log(req.file)
       return res.send({
         message: "File has been uploaded.",
       });
@@ -95,7 +98,8 @@ const DestinationController = {
       });
     }
   },
-  getDestinationThumbnail: async(req, res) => {
+
+  getDestinationPicture: async(req, res) => {
     try {
       console.log("hello")
       await mongoClient.connect();
@@ -185,41 +189,6 @@ const DestinationController = {
       });
     }
   },
-
-  getDestinationImgs: async(req, res) => {
-    try {
-      await mongoClient.connect();
-      var o_id = new mongo.ObjectId(req.params.id)
-      const destination = await Destination.findOne({_id: o_id})
-
-      const database = mongoClient.db(databaseName);
-      const bucket = new GridFSBucket(database, {
-        bucketName: "photos",
-      });
-
-      for (const imgName of destination.list_imgs) {
-        let downloadStream = bucket.openDownloadStreamByName(imgName);
-
-        downloadStream.on("data", function (data) {
-          res.write(data);  // Gửi dữ liệu đến phản hồi khi nhận được từng phần
-        });
-
-        console.log("hello")
-
-        downloadStream.on("error", function (err) {
-          return res.status(404).send({ message: "Cannot download the Image!" });
-        });
-        
-        await new Promise((resolve) => downloadStream.on("end", resolve));
-      }
-      // res.end();
-    } catch (error) {
-      return res.status(500).send({
-        message: error.message,
-      });
-    }
-  }
-
 }
 
 module.exports = DestinationController
