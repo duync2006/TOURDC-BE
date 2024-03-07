@@ -8,12 +8,12 @@ var storage = new GridFsStorage({
   url: 'mongodb+srv://duynguyen206k20:wEfFB0PKiPJ36GKt@tourdc.qxjufkn.mongodb.net/test',
   options: { useNewUrlParser: true, useUnifiedTopology: true },
   file: (req, file) => {
-    const match = ["image/png", "image/jpeg"];
+    // const match = ["image/png", "image/jpeg", "image/jpg"];
     console.log("file: ", file)
-    if (match.indexOf(file.mimetype) === -1) {
-      const filename = `${Date.now()}-tourdc-${file.originalname}`;
-      return filename;
-    }
+    // if (match.indexOf(file.mimetype) === -1) {
+    const filename = `${Date.now()}-tourdc-${file.originalname}`;
+    return filename;
+    // }
 
     return {
       bucketName:  "photos",
