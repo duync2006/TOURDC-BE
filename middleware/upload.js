@@ -11,8 +11,8 @@ var storage = new GridFsStorage({
     // const match = ["image/png", "image/jpeg", "image/jpg"];
     console.log("file: ", file)
     // if (match.indexOf(file.mimetype) === -1) {
-    const filename = `${Date.now()}-tourdc-${file.originalname}`;
-    return filename;
+    // const filename = `${Date.now()}-tourdc-${file.originalname}`;
+    // return filename;
     // }
 
     return {
