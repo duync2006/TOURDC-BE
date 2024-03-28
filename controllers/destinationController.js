@@ -18,6 +18,7 @@ const DestinationController = {
   getAllDestinations: async(req, res) => {
     try {
       const destinations = await Destination.find()
+      console.log(destinations)
       res.status(200).send(destinations)
     } catch (error) {
       console.log(error)
