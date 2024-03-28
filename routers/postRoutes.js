@@ -5,6 +5,7 @@ const router = express.Router();
 // const upload = require('../middleware/upload')
 
 router.post('/add', PostController.savePost);
+router.get('/getCheckInPosts', PostController.getAllCheckInPosts);
 
 // router.post('/uploadAvatar/:id', upload.single("avatar"),  UserController.uploadUserAvatar);
 

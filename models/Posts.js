@@ -2,10 +2,7 @@ const mongoose = require("mongoose");
 // const { post } = require("../routers/userRoutes");
 
 const post = new mongoose.Schema({
-  user: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User'
-  },
+  userAddr: String,
   postID: String,
   list_imgs: {
     type: [String],
@@ -17,7 +14,7 @@ const post = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Destination'
   },
-  reviewtime: {
+  checkInTime: {
     type: Date,
     default: Date.now()
   },
