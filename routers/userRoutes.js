@@ -10,7 +10,7 @@ router.get('/getCurrent', verifyAccessToken, UserController.getCurrent)
 router.post('/refreshToken', UserController.refreshAccesstoken)
 router.get('/logout', UserController.logout)
 router.post('/checkAddress', UserController.checkAddressExist)
-router.get('/getAvatar/:id', UserController.getUserAvatar)
-router.post('/uploadAvatar/:id',  UserController.uploadUserAvatar);
+router.get('/getAvatar/:address', UserController.getUserAvatar)
+router.post('/uploadAvatar/:address',  UserController.uploadUserAvatar);
 
 module.exports = router;

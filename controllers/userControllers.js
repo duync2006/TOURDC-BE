@@ -70,16 +70,12 @@ const UserController =  {
           message: "You must select a file.",
         });
       }
-      var o_id = new mongo.ObjectId(req.params.id)
-      const user = await User.findById({_id: o_id})
-      await User.updateOne({_id: o_id}, {avatar: req.file.filename})
+      await User.updateOne({wallet_address: req.params.address}, {avatar: req.file.filename})
       
       return res.send({
         success: true,
         message: "File has been uploaded.",
       });
-
-      // res.json({ secure_url: req.file.path });
     } catch (error) {
       console.log(error)
       res.status(400).send(error)
@@ -149,7 +145,7 @@ const UserController =  {
     try {
       await mongoClient.connect();
       var o_id = new mongo.ObjectId(req.params.id)
-      const user = await User.findOne({_id: o_id})
+      const user = await User.findOne({wallet_address: req.params.address})
 
       const database = mongoClient.db(databaseName);
       const bucket = new GridFSBucket(database, {

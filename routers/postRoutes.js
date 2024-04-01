@@ -7,7 +7,7 @@ const router = express.Router();
 router.post('/add', PostController.savePost);
 router.post('/getCheckInPosts', PostController.getAllCheckInPosts);
 
-// router.post('/uploadAvatar/:id', upload.single("avatar"),  UserController.uploadUserAvatar);
+router.post('/uploadImgs', PostController.uploadImages)
 
 
 module.exports = router;

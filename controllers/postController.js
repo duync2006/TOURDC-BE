@@ -7,9 +7,10 @@ const toObject = require('../helper/toObject')
 const { json } = require('body-parser')
 const MONGODB_URI = process.env.MONGODB_URI;
 const databaseName = process.env.DATABASE_NAME
+const asyncHandler = require('express-async-handler')
 
 const PostController = {
-  savePost: async(req, res) => {
+  savePost: asyncHandler(async(req, res) => {
     try {
       web3.eth.transactionPollingTimeout = 5000;
       const receipt = await web3.eth.getTransactionReceipt(req.body.hash)
@@ -31,8 +32,8 @@ const PostController = {
         error: error
       })
     }
-  }, 
-  getAllCheckInPosts: async(req, res) => {
+  }), 
+  getAllCheckInPosts: asyncHandler(async(req, res) => {
     try {
       const address = req.body.address.toLowerCase();
 
@@ -50,7 +51,10 @@ const PostController = {
         data: undefined
       })
     }
-  }
+  }), 
+  uploadImages: asyncHandler(async(req,res) => {
+    
+  })
 }
 
 module.exports = PostController
