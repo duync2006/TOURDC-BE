@@ -1,9 +1,19 @@
 const User = require('../models/Users')
-const web3 = require('../config/web3')
+const web3 = require('../configs/web3')
 const asyncHandler = require('express-async-handler')
-const { uploadToCloudDinary, resizeUrlCloundinary } = require('../service/cloudinary')
+const upload = require("../middleware/upload");
 const {generateAccessToken, generateRefreshToken} = require('../middleware/jwt')
 const jwt = require('jsonwebtoken')
+const { mongo } = require('mongoose')
+
+require('dotenv').config({ path: '.env' })
+const MONGODB_URI = process.env.MONGODB_URI;
+const databaseName = process.env.DATABASE_NAME
+
+const MongoClient = require("mongodb").MongoClient;
+const GridFSBucket = require("mongodb").GridFSBucket;
+
+const mongoClient = new MongoClient(MONGODB_URI);
 
 const UserController =  {
   login: asyncHandler(async(req, res) => {
@@ -52,25 +62,30 @@ const UserController =  {
       return res.status(200).json(newUser);
   }),
 
-  uploadUserAvatar: async(req, res) => {
+  uploadUserAvatar: asyncHandler(async(req, res) => {
     try {
-      // console.log(req.file)
-      const data = await uploadToCloudDinary(req.file.path, 'avatar');
-      // console.log(data)
-      const savingImg = await User.updateOne(
-        { _id: req.params.id },
-        {
-          $set: {
-            avatar: data.url
-          }
-        }
-      )
-      res.status(200).send('Upload Success')
+      await upload.uploadFilesMiddleware(req, res);
+      if (req.file == undefined) {
+        return res.send({
+          message: "You must select a file.",
+        });
+      }
+      var o_id = new mongo.ObjectId(req.params.id)
+      const user = await User.findById({_id: o_id})
+      await User.updateOne({_id: o_id}, {avatar: req.file.filename})
+      
+      return res.send({
+        success: true,
+        message: "File has been uploaded.",
+      });
+
+      // res.json({ secure_url: req.file.path });
     } catch (error) {
       console.log(error)
       res.status(400).send(error)
     }
-  }, 
+  }), 
+  
   getCurrent: asyncHandler(async(req, res) => {
     const {_id} = req.user
     const user = await User.findById({_id})
@@ -128,8 +143,37 @@ const UserController =  {
     } catch (error) {
       res.status(500).send(error)
     }
-    
+  }),
 
+  getUserAvatar: asyncHandler(async(req, res) => {
+    try {
+      await mongoClient.connect();
+      var o_id = new mongo.ObjectId(req.params.id)
+      const user = await User.findOne({_id: o_id})
+
+      const database = mongoClient.db(databaseName);
+      const bucket = new GridFSBucket(database, {
+        bucketName: "photos",
+      });
+
+      let downloadStream = bucket.openDownloadStreamByName(user.avatar);
+  
+      downloadStream.on("data", function (data) {
+        return res.status(200).write(data);
+      });
+  
+      downloadStream.on("error", function (err) {
+        return res.status(404).send({ message: "Cannot download the Image!" });
+      });
+  
+      downloadStream.on("end", () => {
+        return res.end();
+      });
+    } catch (error) {
+      return res.status(500).send({
+        message: error.message,
+      });
+    }
   })
 }
 

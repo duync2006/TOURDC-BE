@@ -2,7 +2,7 @@ const { mongo } = require('mongoose')
 const Post = require('../models/Posts')
 var appRoot = require('app-root-path')
 require('dotenv').config({ path: '.env' })
-const web3 = require('../config/web3')
+const web3 = require('../configs/web3')
 const toObject = require('../helper/toObject')
 const { json } = require('body-parser')
 const MONGODB_URI = process.env.MONGODB_URI;

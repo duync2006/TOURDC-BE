@@ -25,7 +25,7 @@ var storage = new GridFsStorage({
 var uploadFiles = multer({ storage: storage, fileFilter: helpers.imageFilter }).single("file");
 var uploadFilesMiddleware = util.promisify(uploadFiles);
 
-var uploadMultipleFiles = multer({ storage: storage, fileFilter: helpers.imageFilter }).array("file", 2)
+var uploadMultipleFiles = multer({ storage: storage, fileFilter: helpers.imageFilter }).array("file", 3)
 var uploadMultipleFilesMiddleware = util.promisify(uploadMultipleFiles)
 
 module.exports = {uploadFilesMiddleware, uploadMultipleFilesMiddleware};

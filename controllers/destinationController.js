@@ -63,7 +63,8 @@ const DestinationController = {
       await Destination.updateOne({_id: o_id}, {list_imgs: listImgName})
       
       return res.send({
-        message: "File has been uploaded.",
+        success: true,
+        message: "Files has been uploaded.",
       });
     } catch (error) {
       console.log(error);
@@ -102,7 +103,6 @@ const DestinationController = {
 
   getDestinationPicture: async(req, res) => {
     try {
-      console.log("hello")
       await mongoClient.connect();
   
       const database = mongoClient.db(databaseName);
