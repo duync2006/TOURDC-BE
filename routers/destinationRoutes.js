@@ -23,4 +23,6 @@ router.get('/getDestinationThumbnailById/:id', destinationController.getDestinat
 
 router.get('/getListFiles', destinationController.getListFiles)
 
+router.post('/checkGPS', destinationController.checkGPS)
+
 module.exports = router;

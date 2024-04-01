@@ -190,6 +190,37 @@ const DestinationController = {
       });
     }
   },
+
+  checkGPS: async(req, res) => {
+    try {
+      const longitude = req.body.longitude
+      const latitude  = req.body.latitude 
+      const placeID = new mongo.ObjectId(req.body.placeID)
+  
+      const dest = await Destination.findById({_id: placeID}) 
+      console.log(dest.latMin)
+      const minLong = dest.longMin 
+      const maxLong = dest.longMax
+      const minLat = dest.latMin
+      const maxLat = dest.latMax
+      if( (minLong <= longitude && longitude <= maxLong) && (minLat <= latitude && latitude <= maxLat)) {
+        res.status(200).send({
+          success: true,
+          message: "Valid GPS"
+        })
+      } else {
+        res.status(400).send({
+          success: false,
+          message: "Invalid GPS"
+        })
+      }
+    } catch (error) {
+      res.status(500).send({
+        success: true,
+        message: error.message
+      })
+    }
+  }
 }
 
 module.exports = DestinationController

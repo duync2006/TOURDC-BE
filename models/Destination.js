@@ -30,7 +30,19 @@ const destinationSchema = new mongoose.Schema({
   },
   rate: {
     type: Number
-  }
+  },
+  longMin: {
+    type: Number, default: -180
+  },
+  longMax: {
+    type: Number, default: 180
+  },
+  latMin: {
+    type: Number, default: -90
+  },
+  latMax: {
+    type: Number, default: 90
+  },
 })
 
 let Destination = mongoose.model("Destination", destinationSchema);
