@@ -10,6 +10,8 @@ router.post('/login', UserController.login);
 router.get('/getCurrent', verifyAccessToken, UserController.getCurrent)
 router.post('/refreshToken', UserController.refreshAccesstoken)
 router.get('/logout', UserController.logout)
+router.post('/checkAddress', UserController.checkAddressExist)
+
 
 // router.post('/uploadAvatar/:id', upload.single("avatar"),  UserController.uploadUserAvatar);
 

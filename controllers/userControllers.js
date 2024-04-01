@@ -106,7 +106,31 @@ const UserController =  {
       success: true,
       message: 'Logout is done'
     })
-  }), 
+  }),
+
+  checkAddressExist: asyncHandler(async(req, res) => {
+    try {
+      const address = req.body.address
+      const user = await User.findOne({
+        wallet_address: address
+      })
+      if(user) {
+        res.status(200).send({
+          success: true,
+          data: user
+        })
+      } else {
+        res.status(404).send({
+          success: false,
+          message: "User not found"
+        })
+      }
+    } catch (error) {
+      res.status(500).send(error)
+    }
+    
+
+  })
 }
 
 module.exports = UserController; 

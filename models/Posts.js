@@ -8,7 +8,7 @@ const post = new mongoose.Schema({
     type: [String],
   },
   trHash: {
-    type: String,
+    type: String, index: { unique: true }
   },
   placeid: {
     type: mongoose.Schema.Types.ObjectId,
