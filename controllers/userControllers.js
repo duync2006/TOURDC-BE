@@ -50,6 +50,14 @@ const UserController =  {
           message: "Missing Input"
         })
       }
+      await upload.uploadFilesMiddleware(req, res);
+      if (req.file == undefined) {
+        return res.send({
+          message: "You must select a file.",
+        });
+      }
+      req.body.avatar = req.file.filename;
+      
       const user = await User.findOne({username: req.body.username})
       if (user) throw new Error('User Has Existed')
       if (req.body.waller_address == "" || req.body.waller_address == null) {
