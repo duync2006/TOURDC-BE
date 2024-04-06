@@ -60,14 +60,17 @@ const UserController =  {
       
       const user = await User.findOne({username: req.body.username})
       if (user) throw new Error('User Has Existed')
-      if (req.body.waller_address == "" || req.body.waller_address == null) {
-        let newWallet = web3.eth.accounts.create()
-        // console.log(newWallet.address)
-        req.body.wallet_address = newWallet.address
-        req.body.private_key = newWallet.privateKey
-      }
+      // if (req.body.waller_address == "" || req.body.waller_address == null) {
+      //   let newWallet = web3.eth.accounts.create()
+      //   // console.log(newWallet.address)
+      //   req.body.wallet_address = newWallet.address
+      //   req.body.private_key = newWallet.privateKey
+      // }
       const newUser = await User.create(req.body);
-      return res.status(200).json(newUser);
+      return res.status(200).json({
+        success: true,
+        data: newUser
+      });
   }),
 
   uploadUserAvatar: asyncHandler(async(req, res) => {
