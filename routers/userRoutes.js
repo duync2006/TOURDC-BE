@@ -12,5 +12,7 @@ router.get('/logout', UserController.logout)
 router.post('/checkAddress', UserController.checkAddressExist)
 router.get('/getAvatar/:address', UserController.getUserAvatar)
 router.post('/uploadAvatar/:address',  UserController.uploadUserAvatar);
+router.post('/getShareKey/',  UserController.getShareKey);
+router.post('/getPrivateEnc/',  UserController.getPrivateKey);
 
 module.exports = router;

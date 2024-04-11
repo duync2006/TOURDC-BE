@@ -181,7 +181,43 @@ const UserController =  {
         message: error.message,
       });
     }
-  })
+  }),
+
+  getShareKey: async(req, res) => {
+    try {
+      const address = req.body.address
+      const user = await User.findOne({
+        wallet_address: address
+      })
+      res.status(200).send({
+        success: true,
+        data: user.share_key
+      })
+    } catch (error) {
+      res.status(404).send({
+        success:false,
+        error: 'User not found'
+      })
+    }
+  },
+
+  getPrivateKey: async(req, res) => {
+    try {
+      const address = req.body.address
+      const user = await User.findOne({
+        wallet_address: address
+      })
+      res.status(200).send({
+        success: true,
+        data: user.private_key_encrypted
+      })
+    } catch (error) {
+      res.status(404).send({
+        success:false,
+        error: 'User not found'
+      })
+    }
+  }
 }
 
 module.exports = UserController; 

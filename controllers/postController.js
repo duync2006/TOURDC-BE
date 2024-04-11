@@ -20,6 +20,7 @@ const baseUrl = `:5500/api/post/getImg/1711987631916-tourdc-jsoncrack.com.png`
 const PostController = {
   savePost: asyncHandler(async(req, res) => {
     try {
+      console.log('savePost')
       web3.eth.transactionPollingTimeout = 5000;
       const receipt = await web3.eth.getTransactionReceipt(req.body.hash)
       console.log(toObject(receipt))
