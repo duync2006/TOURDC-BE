@@ -7,7 +7,7 @@ const router = express.Router();
 router.post('/add', PostController.savePost);
 router.post('/getCheckInPosts', PostController.getAllCheckInPosts);
 
-router.post('/uploadImgs/:postID', PostController.uploadImages)
+router.post('/uploadImgs', PostController.uploadImages)
 router.get('/getImgs/:postID',PostController.getPostImgs)
 router.get('/getImg/:picture', PostController.getImg)
 

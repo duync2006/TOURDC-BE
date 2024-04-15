@@ -74,7 +74,7 @@ const PostController = {
         listImgName.push(file.filename)
       }
 
-      await Post.updateOne({postID: req.params.postID}, {list_imgs: listImgName})
+      await Post.updateOne({postID: req.body.postID}, {list_imgs: listImgName})
       
       return res.send({
         success: true,
