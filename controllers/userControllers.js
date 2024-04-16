@@ -98,7 +98,7 @@ const UserController =  {
     const user = await User.findOne({wallet_address: address}).select({
       'firstName': 1,
       'lastName':1,
-      'avatar:':1,
+      'avatar':1,
       'role':1,
       'wallet_address':1,
       'phoneNumber': 1
