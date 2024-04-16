@@ -6,7 +6,7 @@ const router = express.Router();
 
 router.post('/register', UserController.createUser);
 router.post('/login', UserController.login);
-router.get('/getCurrent', UserController.getCurrent)
+router.post('/getCurrent', UserController.getCurrent)
 router.post('/refreshToken', UserController.refreshAccesstoken)
 router.get('/logout', UserController.logout)
 router.post('/checkAddress', UserController.checkAddressExist)

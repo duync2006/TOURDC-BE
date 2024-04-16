@@ -95,7 +95,14 @@ const UserController =  {
   
   getCurrent: asyncHandler(async(req, res) => {
     const address = req.body.address
-    const user = await User.findOne({wallet_address: address})
+    const user = await User.findOne({wallet_address: address}).select({
+      'firstName': 1,
+      'lastName':1,
+      'avatar:':1,
+      'role':1,
+      'wallet_address':1,
+      'phoneNumber': 1
+    })
     return res.status(200).json({
       success: true,
       user: user ? user : "User not found"
