@@ -18,6 +18,10 @@ const post = new mongoose.Schema({
     type: Date,
     default: Date.now()
   },
+  isReviewed: {
+    type: Boolean,
+    default: false
+  },
 })
 
 let PostModel = mongoose.model("Post", post)

@@ -24,7 +24,7 @@ const UserController =  {
       })
     }
     const user = await User.findOne({username: req.body.username})
-    // console.log("Is correct Password", await user.isCorrectPassword(req.body.password))
+    console.log("Is correct Password", await user.isCorrectPassword(req.body.password))
     //refreshToken --> cap moi accesstoken
     //accesstoken --> xac thuc nguoi dung, phan quyen nguoi dung
 
@@ -44,6 +44,7 @@ const UserController =  {
   }),
 
   createUser: asyncHandler(async(req, res) => {
+      console.log("register")
       if (req.body.username == "" || req.body.password == "") {
         return res.status(400).json({
           success: false, 

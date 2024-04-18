@@ -47,7 +47,8 @@ const PostController = {
       const address = req.body.address.toLowerCase();
 
       const posts = await Post.find({
-        userAddr: address
+        userAddr: address,
+        isReviewed: false
       })
       res.status(200).json({
         success: true,
@@ -126,6 +127,27 @@ const PostController = {
       res.status(500).send(error)
     }
   }),
+  updateStatus: asyncHandler(async(req, res) => {
+    try {
+      const postID = req.body.postID;
+
+      const posts = await Post.updateOne({
+        postID: postID,
+      }, {
+        isReviewed: true
+      })
+      res.status(200).json({
+        success: true,
+        data: posts
+      })
+    } catch (error) {
+      console.error(error)
+      res.status(500).send({
+        success: false,
+        data: undefined
+      })
+    }
+  })
 }
 
 module.exports = PostController

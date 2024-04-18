@@ -6,6 +6,7 @@ const router = express.Router();
 
 router.post('/add', PostController.savePost);
 router.post('/getCheckInPosts', PostController.getAllCheckInPosts);
+router.post('/updateReview', PostController.updateStatus)
 
 router.post('/uploadImgs', PostController.uploadImages)
 router.get('/getImgs/:postID',PostController.getPostImgs)
