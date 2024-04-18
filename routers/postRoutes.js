@@ -11,5 +11,6 @@ router.post('/updateReview', PostController.updateStatus)
 router.post('/uploadImgs', PostController.uploadImages)
 router.get('/getImgs/:postID',PostController.getPostImgs)
 router.get('/getImg/:picture', PostController.getImg)
+router.get('/getHash/:postID', PostController.getHashOfPostID)
 
 module.exports = router;

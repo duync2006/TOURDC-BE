@@ -7,6 +7,7 @@ const toObject = require('../helper/toObject')
 const { json } = require('body-parser')
 const asyncHandler = require('express-async-handler')
 const upload = require("../middleware/uploadPostImg");
+const { hash } = require('bcrypt')
 require('dotenv').config({ path: '.env' })
 const MONGODB_URI = process.env.MONGODB_URI;
 const databaseName = process.env.DATABASE_NAME
@@ -147,7 +148,28 @@ const PostController = {
         data: undefined
       })
     }
-  })
+  }),
+  getHashOfPostID:  asyncHandler(async(req, res) => {
+    try {
+      const postID = req.params.postID;
+      console.log(postID)
+      const hash = await Post.findOne({
+        postID: postID,
+      }).select({
+        trHash: true
+      })
+      res.status(200).json({
+        success: true,
+        data: hash
+      })
+    } catch (error) {
+      console.error(error)
+      res.status(500).send({
+        success: false,
+        data: undefined
+      })
+    }
+  }),
 }
 
 module.exports = PostController
