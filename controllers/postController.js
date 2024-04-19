@@ -17,7 +17,7 @@ const GridFSBucket = require("mongodb").GridFSBucket;
 
 const mongoClient = new MongoClient(MONGODB_URI);
 
-const baseUrl = `:5500/api/post/getImg/1711987631916-tourdc-jsoncrack.com.png`
+
 const PostController = {
   savePost: asyncHandler(async(req, res) => {
     try {
