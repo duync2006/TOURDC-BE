@@ -21,7 +21,7 @@ const transactionController = {
         amount: Number(web3.utils.hexToNumber(receipt.logs[1].topics[2])),
         date: toObject((await web3.eth.getBlock(receipt.blockNumber)).timestamp),
         reason: req.body.reason,
-        userAddr: receipt.from
+        userAddr: (receipt.from).toLowerCase()
       }
       console.log(object)
       await Transaction.create(object)
@@ -30,12 +30,13 @@ const transactionController = {
         data: object
       })
     } catch (error) {
+      console.log(error)
       res.status(500).send(error)
     }
   }),
   getTransactionHistory: asyncHandler(async(req, res) =>{
     try{
-      const address = req.body.address
+      const address = req.body.address.toLowerCase()
       const transactions = await Transaction.find({
         userAddr: address
       })
