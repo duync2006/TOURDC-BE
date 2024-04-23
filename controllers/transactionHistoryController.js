@@ -19,7 +19,7 @@ const transactionController = {
         trHash: txHash,
         postID: receipt.logs[1].topics[1],
         amount: Number(web3.utils.hexToNumber(receipt.logs[1].topics[2])),
-        date: toObject((await web3.eth.getBlock(receipt.blockNumber)).timestamp),
+        date: (Number((await web3.eth.getBlock(receipt.blockNumber)).timestamp) * 1000),
         reason: req.body.reason,
         userAddr: (receipt.from).toLowerCase()
       }
