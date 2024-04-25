@@ -14,7 +14,6 @@ const transactionController = {
     try {
       const txHash = req.body.hash;
       const receipt = toObject(await web3.eth.getTransactionReceipt(txHash))
-      
       const object = {
         trHash: txHash,
         postID: receipt.logs[1].topics[1],
